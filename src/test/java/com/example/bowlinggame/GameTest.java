@@ -1,7 +1,8 @@
 package com.example.bowlinggame;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
     Game game = new Game();
@@ -12,6 +13,15 @@ public class GameTest {
             game.roll(0);
         }
 
-        Assertions.assertEquals(0, game.score());
+        assertEquals(0, game.score());
+    }
+
+    @Test
+    void fullGameOfOnePinKnockedShouldReturnTwenty(){
+        for (int i = 0; i < 20; i++) {
+            game.roll(1);
+        }
+
+        assertEquals(20, game.score());
     }
 }
