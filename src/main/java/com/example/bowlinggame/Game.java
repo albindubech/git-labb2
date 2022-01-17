@@ -1,60 +1,57 @@
 package com.example.bowlinggame;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game {
 
-    private final int[] rolls = new int[21];
-    private int currentRoll = 0;
+    private final List<Integer> rolls = new ArrayList<>();
+    int score = 0;
 
     public void roll(int pins) {
-        rolls[currentRoll++] = pins;
+        rolls.add(pins);
     }
 
     public int score() {
-        int score = 0;
         int frameIndex = 0;
 
         for (int frame = 0; frame < 10; frame++) {
             if (isStrike(frameIndex)) {
-                score = strikeBonus(score, frameIndex);
+                strikeBonus(frameIndex);
                 frameIndex++;
             } else if (isSpare(frameIndex)) {
-                score = spareBonus(score, frameIndex);
+                spareBonus(frameIndex);
                 frameIndex += 2;
             } else {
-                score = noBonus(score, frameIndex);
+                noBonus(frameIndex);
                 frameIndex += 2;
             }
         }
-
         return score;
     }
 
     private boolean isStrike(int frameIndex) {
-        return rolls[frameIndex] == 10;
+        return rolls.get(frameIndex) == 10;
     }
 
     private boolean isSpare(int frameIndex) {
-        return rolls[frameIndex] +
-               rolls[frameIndex + 1] == 10;
+        return rolls.get(frameIndex) +
+               rolls.get(frameIndex + 1) == 10;
     }
 
-    private int noBonus(int score, int frameIndex) {
-        score +=
-                rolls[frameIndex] +
-                rolls[frameIndex + 1];
-        return score;
+    private void noBonus(int frameIndex) {
+        score += rolls.get(frameIndex) +
+                 rolls.get(frameIndex + 1);
     }
 
-    private int spareBonus(int score, int frameIndex) {
+    private void spareBonus(int frameIndex) {
         score += 10 +
-                 rolls[frameIndex + 2];
-        return score;
+                 rolls.get(frameIndex + 2);
     }
 
-    private int strikeBonus(int score, int frameIndex) {
+    private void strikeBonus(int frameIndex) {
         score += 10 +
-                 rolls[frameIndex + 1] +
-                 rolls[frameIndex + 2];
-        return score;
+                 rolls.get(frameIndex + 1) +
+                 rolls.get(frameIndex + 2);
     }
 }
