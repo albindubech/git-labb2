@@ -18,25 +18,34 @@ public class GameTest {
     }
 
     @Test
-    void fullGutterGameShouldReturnZero(){
-        fullSeries(20,0);
+    void fullGutterGameShouldReturnZero() {
+        fullSeries(20, 0);
 
         assertEquals(0, game.score());
     }
 
     @Test
-    void fullGameOfOnePinKnockedShouldReturnTwenty(){
-        fullSeries(20,1);
+    void fullGameOfOnePinKnockedShouldReturnTwenty() {
+        fullSeries(20, 1);
 
         assertEquals(20, game.score());
     }
 
     @Test
-    void whenFrameIsSpareThatScoreWillCountTheFollowingRoll(){
+    void whenFrameIsSpareScoreShouldCountTheFollowingRoll() {
         game.roll(5);
         game.roll(5);
         game.roll(7);
-        fullSeries(17,0);
+        fullSeries(17, 0);
         assertEquals(24, game.score());
+    }
+
+    @Test
+    void whenFrameIsStrikeScoreShouldCountTheFollowingTwoRolls() {
+        game.roll(10);
+        game.roll(4);
+        game.roll(5);
+        fullSeries(16,0);
+        assertEquals(28, game.score());
     }
 }
