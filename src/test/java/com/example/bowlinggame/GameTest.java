@@ -11,6 +11,12 @@ public class GameTest {
         game = new Game();
     }
 
+    private void fullSeries(int rolls, int pins) {
+        for (int i = 0; i < rolls; i++) {
+            game.roll(pins);
+        }
+    }
+
     @Test
     void fullGutterGameShouldReturnZero(){
         fullSeries(20,0);
@@ -25,9 +31,12 @@ public class GameTest {
         assertEquals(20, game.score());
     }
 
-    private void fullSeries(int rolls, int pins) {
-        for (int i = 0; i < rolls; i++) {
-            game.roll(pins);
-        }
+    @Test
+    void whenFrameIsSpareThatScoreWillCountTheFollowingRoll(){
+        game.roll(5);
+        game.roll(5);
+        game.roll(7);
+        fullSeries(17,0);
+        assertEquals(24, game.score());
     }
 }
