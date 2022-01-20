@@ -6,7 +6,7 @@ import java.util.List;
 public class Game {
 
     private final List<Integer> rolls = new ArrayList<>();
-    int score = 0;
+    private int score = 0;
 
     public void roll(int pins) {
         rolls.add(pins);
@@ -16,14 +16,12 @@ public class Game {
         int frameIndex = 0;
 
         for (int frame = 0; frame < 10; frame++) {
-            if (isStrike(frameIndex)) {
-                strikeBonus(frameIndex);
+            if (isStrike(frameIndex))
                 frameIndex++;
-            } else if (isSpare(frameIndex)) {
-                spareBonus(frameIndex);
+            else if (isSpare(frameIndex))
                 frameIndex += 2;
-            } else {
-                noBonus(frameIndex);
+            else {
+                regularFrame(frameIndex);
                 frameIndex += 2;
             }
         }
@@ -31,27 +29,28 @@ public class Game {
     }
 
     private boolean isStrike(int frameIndex) {
-        return rolls.get(frameIndex) == 10;
+        if (rolls.get(frameIndex) == 10) {
+            score += 10 +
+                     rolls.get(frameIndex + 1) +
+                     rolls.get(frameIndex + 2);
+            return true;
+        }
+        else
+            return false;
     }
 
     private boolean isSpare(int frameIndex) {
-        return rolls.get(frameIndex) +
-               rolls.get(frameIndex + 1) == 10;
+        if (rolls.get(frameIndex) + rolls.get(frameIndex + 1) == 10) {
+            score += 10 +
+                     rolls.get(frameIndex + 2);
+            return true;
+        }
+        else
+            return false;
     }
 
-    private void noBonus(int frameIndex) {
+    private void regularFrame(int frameIndex) {
         score += rolls.get(frameIndex) +
                  rolls.get(frameIndex + 1);
-    }
-
-    private void spareBonus(int frameIndex) {
-        score += 10 +
-                 rolls.get(frameIndex + 2);
-    }
-
-    private void strikeBonus(int frameIndex) {
-        score += 10 +
-                 rolls.get(frameIndex + 1) +
-                 rolls.get(frameIndex + 2);
     }
 }
