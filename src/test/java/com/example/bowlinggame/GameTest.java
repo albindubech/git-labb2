@@ -11,22 +11,22 @@ public class GameTest {
         game = new Game();
     }
 
-    private void fullSeries(int rolls, int pins) {
+    private void seriesOf(int rolls, int knockedPins) {
         for (int i = 0; i < rolls; i++) {
-            game.roll(pins);
+            game.roll(knockedPins);
         }
     }
 
     @Test
     void fullGutterGameShouldReturnZero() {
-        fullSeries(20, 0);
+        seriesOf(20, 0);
 
         assertEquals(0, game.score());
     }
 
     @Test
     void fullGameOfOnePinKnockedShouldReturnTwenty() {
-        fullSeries(20, 1);
+        seriesOf(20, 1);
 
         assertEquals(20, game.score());
     }
@@ -36,7 +36,7 @@ public class GameTest {
         game.roll(5);
         game.roll(5);
         game.roll(7);
-        fullSeries(17, 0);
+        seriesOf(17, 0);
         assertEquals(24, game.score());
     }
 
@@ -45,13 +45,13 @@ public class GameTest {
         game.roll(10);
         game.roll(4);
         game.roll(5);
-        fullSeries(16,0);
+        seriesOf(16,0);
         assertEquals(28, game.score());
     }
 
     @Test
     void perfectGame(){
-        fullSeries(12,10);
+        seriesOf(12,10);
         assertEquals(300,game.score());
     }
 
@@ -82,7 +82,7 @@ public class GameTest {
 
     @Test
     void strikeOnLastFrameShouldGiveTwoExtraRolls() {
-        fullSeries(18,0);
+        seriesOf(18,0);
         game.roll(10);
         game.roll(10);
         game.roll(4);
@@ -91,10 +91,18 @@ public class GameTest {
 
     @Test
     void spareOnLastFrameShouldGiveOneExtraRoll() {
-        fullSeries(18,0);
+        seriesOf(18,0);
         game.roll(7);
         game.roll(3);
         game.roll(4);
         assertEquals(14, game.score());
+    }
+
+    @Test
+    void moreThan20RollsShouldNotCountTowardsScore(){
+        seriesOf(20,0);
+        game.roll(3);
+
+        assertEquals(0, game.score());
     }
 }
