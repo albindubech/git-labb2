@@ -88,4 +88,13 @@ public class GameTest {
         game.roll(4);
         assertEquals(24, game.score());
     }
+
+    @Test
+    void spareOnLastFrameShouldGiveOneExtraRoll() {
+        fullSeries(18,0);
+        game.roll(7);
+        game.roll(3);
+        game.roll(4);
+        assertEquals(14, game.score());
+    }
 }
