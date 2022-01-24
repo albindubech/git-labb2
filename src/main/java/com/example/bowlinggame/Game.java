@@ -6,19 +6,19 @@ import java.util.List;
 public class Game {
 
     private final List<Integer> rolls = new ArrayList<>();
-    private int score = 0;
+    private int score;
 
-    public void roll(int pins) {
-        rolls.add(pins);
+    public void roll(int knockedPins) {
+        rolls.add(knockedPins);
     }
 
     public int score() {
         int frameIndex = 0;
 
         for (int frame = 0; frame < 10; frame++) {
-            if (isStrike(frameIndex))
+            if (strike(frameIndex))
                 frameIndex++;
-            else if (isSpare(frameIndex))
+            else if (spare(frameIndex))
                 frameIndex += 2;
             else {
                 regularFrame(frameIndex);
@@ -28,24 +28,22 @@ public class Game {
         return score;
     }
 
-    private boolean isStrike(int frameIndex) {
+    private boolean strike(int frameIndex) {
         if (rolls.get(frameIndex) == 10) {
             score += 10 +
                      rolls.get(frameIndex + 1) +
                      rolls.get(frameIndex + 2);
             return true;
-        }
-        else
+        } else
             return false;
     }
 
-    private boolean isSpare(int frameIndex) {
+    private boolean spare(int frameIndex) {
         if (rolls.get(frameIndex) + rolls.get(frameIndex + 1) == 10) {
             score += 10 +
                      rolls.get(frameIndex + 2);
             return true;
-        }
-        else
+        } else
             return false;
     }
 

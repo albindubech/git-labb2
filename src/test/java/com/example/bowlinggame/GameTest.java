@@ -79,4 +79,13 @@ public class GameTest {
 
         assertEquals(133, game.score());
     }
+
+    @Test
+    void strikeOnLastFrameShouldGiveTwoExtraRolls() {
+        fullSeries(18,0);
+        game.roll(10);
+        game.roll(10);
+        game.roll(4);
+        assertEquals(24, game.score());
+    }
 }
