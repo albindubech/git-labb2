@@ -23,4 +23,11 @@ public class EmployeeTest {
     void getSalaryShouldReturn20_000() {
         assertThat(employee.getSalary()).isEqualTo(20_000.0);
     }
+
+    @Test
+    void setSalaryShouldReturn18_000() {
+        employee.setSalary(18_000.0);
+
+        assertThat(employee.getSalary()).isEqualTo(18_000.0);
+    }
 }
