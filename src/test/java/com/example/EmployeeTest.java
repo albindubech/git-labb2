@@ -42,4 +42,9 @@ public class EmployeeTest {
 
         assertThat(employee.isPaid()).isTrue();
     }
+
+    @Test
+    void toStringShouldReturnEmployeeSummary() {
+        assertThat(employee).hasToString("Employee [id=" + employee.getId() + ", salary=" + employee.getSalary() + "]");
+    }
 }
