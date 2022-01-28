@@ -11,4 +11,11 @@ public class EmployeeTest {
     void getIdShouldReturn1() {
         assertThat(employee.getId()).isEqualTo("1");
     }
+
+    @Test
+    void setIdShouldReturn2(){
+        employee.setId("2");
+
+        assertThat(employee.getId()).isEqualTo("2");
+    }
 }
