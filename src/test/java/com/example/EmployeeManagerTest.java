@@ -27,4 +27,16 @@ class EmployeeManagerTest {
     void payEmployeesShouldReturnThree() {
         assertThat(employeeManager.payEmployees()).isEqualTo(3);
     }
+
+    @Test
+    void shouldThrowRuntimeExceptionWhenIsPaidIsFalse() {
+        doThrow(new RuntimeException())
+                .when(bankService)
+                .pay(anyString(), anyDouble());
+
+        employeeManager.payEmployees();
+
+        assertThat(employeeRepository.findAll().get(0).isPaid()).isFalse();
+        assertThat(employeeRepository.findAll().size()).isEqualTo(3);
+    }
 }
