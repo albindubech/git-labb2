@@ -27,4 +27,12 @@ class EmployeeRepositoryMemoryTest {
 
         assertThat(result).size().isEqualTo(0);
     }
+
+
+    @Test
+    void findAllShouldReturnThree() {
+        var result = employeeRepository.findAll();
+
+        assertThat(result).size().isEqualTo(3);
+    }
 }
