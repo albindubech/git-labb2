@@ -35,4 +35,13 @@ class EmployeeRepositoryMemoryTest {
 
         assertThat(result).size().isEqualTo(3);
     }
+
+    @Test
+    void saveShouldReturnFourWhenNewEmployeeIsSaved() {
+        employeeRepository.save(new Employee("101", 110.0));
+
+        var result = employeeRepository.findAll();
+
+        assertThat(result).size().isEqualTo(4);
+    }
 }
