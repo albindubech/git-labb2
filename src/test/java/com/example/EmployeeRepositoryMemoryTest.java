@@ -44,4 +44,13 @@ class EmployeeRepositoryMemoryTest {
 
         assertThat(result).size().isEqualTo(4);
     }
+
+    @Test
+    void saveOnEmployeeIdAlreadyInListShouldOverwriteOldOne() {
+        var employee = employeeRepository.findAll().get(0);
+
+        var employeeUpgrade = employeeRepository.save(new Employee("123", 200.0));
+
+        assertThat(employees).doesNotContain(employee).contains(employeeUpgrade);
+    }
 }
